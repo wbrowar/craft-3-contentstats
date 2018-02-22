@@ -1,0 +1,43 @@
+{
+    "name": "wbrowar/contentstats",
+    "description": "Display info about your site's entries.",
+    "type": "craft-plugin",
+    "version": "2.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "content stats"
+    ],
+    "support": {
+        "docs": "https://github.com/wbrowar/content-stats/blob/master/README.md",
+        "issues": "https://github.com/wbrowar/content-stats/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Will Browar",
+            "homepage": "http://wbrowar.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC11"
+    },
+    "autoload": {
+        "psr-4": {
+          "wbrowar\\contentstats\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Content Stats",
+        "handle": "content-stats",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/wbrowar/content-stats/master/CHANGELOG.md",
+        "components": {
+            "entryCount": "wbrowar\\contentstats\\services\\EntryCount"
+        },
+        "class": "wbrowar\\contentstats\\ContentStats"
+    }
+}
