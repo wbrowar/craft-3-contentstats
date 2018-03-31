@@ -16,7 +16,7 @@
 
 <h1>{{ widgetTitle }}</h1>
 
-{% cache globally using key 'content-stats-' ~ widget.id %}
+{#{% cache globally using key 'content-stats-' ~ widget.id %}#}
     <div class="contentstats__stats contentstats__stats--{{ display }}">
         {% for key, show in showSection %}
             {% if show %}
@@ -83,4 +83,4 @@
             {% endif %}
         {% endfor %}
     </div>
-{% endcache %}
+{#{% endcache %}#}

@@ -2,7 +2,7 @@
     "name": "wbrowar/contentstats",
     "description": "Display info about your site's entries.",
     "type": "craft-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC11"
+        "craftcms/cms": "^3.0.0-RC17"
     },
     "autoload": {
         "psr-4": {
