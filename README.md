@@ -1,12 +1,12 @@
 # Content Stats plugin for Craft CMS 3.x
 
-See how many entries have been created for channels and structures in your Craft CMS website.
+See how many entries, assets, categories, and users are in your Craft CMS website.
 
 ![Screenshot](resources/img/contentstats-entry-count.png)
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-RC11 or later.
+This plugin requires Craft CMS 3.0.12 or later.
 
 ## Installation
 

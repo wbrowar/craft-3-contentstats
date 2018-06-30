@@ -10,15 +10,17 @@
 
 namespace wbrowar\contentstats;
 
-use wbrowar\contentstats\services\EntryCount as EntryCountService;
-use wbrowar\contentstats\widgets\EntryCount as EntryCountWidget;
+use wbrowar\contentstats\variables\ContentStatsVariable;
+use wbrowar\contentstats\widgets\AssetCount;
+use wbrowar\contentstats\widgets\CategoryCount;
+use wbrowar\contentstats\widgets\EntryCount;
+use wbrowar\contentstats\widgets\UserCount;
 
 use Craft;
 use craft\base\Plugin;
-use craft\services\Plugins;
-use craft\events\PluginEvent;
 use craft\services\Dashboard;
 use craft\events\RegisterComponentTypesEvent;
+use craft\web\twig\variables\CraftVariable;
 
 use yii\base\Event;
 
@@ -29,7 +31,6 @@ use yii\base\Event;
  * @package   ContentStats
  * @since     2.0.0
  *
- * @property  EntryCountService $entryCount
  */
 class ContentStats extends Plugin
 {
@@ -60,23 +61,30 @@ class ContentStats extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        // Register our variables
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('contentStats', ContentStatsVariable::class);
+            }
+        );
+
+        // Add our widgets
         Event::on(
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = EntryCountWidget::class;
+                $event->types[] = AssetCount::class;
+                $event->types[] = CategoryCount::class;
+                $event->types[] = EntryCount::class;
+                $event->types[] = UserCount::class;
             }
         );
 
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                }
-            }
-        );
-
+        // Log that the plugin has been loaded
         Craft::info(
             Craft::t(
                 'content-stats',
@@ -86,8 +94,4 @@ class ContentStats extends Plugin
             __METHOD__
         );
     }
-
-    // Protected Methods
-    // =========================================================================
-
 }

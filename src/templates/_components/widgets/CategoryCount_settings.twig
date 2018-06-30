@@ -1,0 +1,42 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * CategoryCount Widget Settings
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      https://wbrowar.com
+ * @package   ContentStats
+ * @since     2.1.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% set editableGroups = craft.app.categories.editableGroups %}
+
+{{ forms.textField({
+    label: "Header",
+    name: "widgetTitle",
+    placeholder: 'Category Count',
+    value: settings.widgetTitle ?? 'Category Count',
+}) }}
+
+{% if editableGroups|length %}
+    <div class="contentstats__settings__sections">
+        {% for group in editableGroups %}
+            {% set groupHandle = group.handle %}
+            {% set groupName = group.name %}
+
+            {{ groupName }}
+            {{ forms.lightswitch({
+                name: "showGroup[" ~ groupHandle ~ "]",
+                on: settings.showGroup[groupHandle] ?? false,
+            }) }}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>There currently aren&rsquo;t any categories in this website.</p>
+{% endif %}

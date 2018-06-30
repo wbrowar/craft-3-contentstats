@@ -1,8 +1,8 @@
 {
     "name": "wbrowar/contentstats",
-    "description": "Display info about your site's entries.",
+    "description": "Display info about your site's entries, categories, users, and assets.",
     "type": "craft-plugin",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC17"
+        "craftcms/cms": "^3.0.12"
     },
     "autoload": {
         "psr-4": {
@@ -35,9 +35,6 @@
         "hasCpSettings": false,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/wbrowar/content-stats/master/CHANGELOG.md",
-        "components": {
-            "entryCount": "wbrowar\\contentstats\\services\\EntryCount"
-        },
         "class": "wbrowar\\contentstats\\ContentStats"
     }
 }

@@ -2,9 +2,9 @@
 /**
  * Content Stats plugin for Craft CMS 3.x
  *
- * Display info about your site's entries.
+ * This is a generic Craft CMS plugin
  *
- * @link      http://wbrowar.com
+ * @link      https://wbrowar.com
  * @copyright Copyright (c) 2018 Will Browar
  */
 
@@ -20,33 +20,33 @@ use craft\base\Widget;
  *
  * @author    Will Browar
  * @package   ContentStats
- * @since     2.0.0
+ * @since     2.1.0
  */
-class EntryCount extends Widget
+class AssetCount extends Widget
 {
 
     // Public Properties
     // =========================================================================
 
     /**
-     * @var string
+     * @var mixed
      */
     public $display = 'simple';
 
     /**
      * @var mixed
      */
-    public $showSection = [];
+    public $showVolume = [];
 
     /**
-     * @var string
+     * @var mixed
      */
     public $status = 'live';
 
     /**
      * @var string
      */
-    public $widgetTitle = 'Entry Count';
+    public $widgetTitle = 'Asset Count';
 
     // Static Methods
     // =========================================================================
@@ -56,7 +56,7 @@ class EntryCount extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('content-stats', 'Entry Count');
+        return Craft::t('content-stats', 'Asset Count');
     }
 
     /**
@@ -89,7 +89,7 @@ class EntryCount extends Widget
             [
                 [['display','widgetTitle'], 'string'],
                 ['display', 'default', 'value' => 'simple'],
-                ['widgetTitle', 'default', 'value' => 'Entry Count'],
+                ['widgetTitle', 'default', 'value' => 'Asset Count'],
             ]
         );
         return $rules;
@@ -101,7 +101,7 @@ class EntryCount extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_settings',
+            'content-stats/_components/widgets/AssetCount_settings',
             [
                 'settings' => $this->settings,
                 'widget' => $this
@@ -116,14 +116,11 @@ class EntryCount extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(ContentStatsAsset::class);
 
-        //Craft::dd($this->showSection);
-
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_body',
+            'content-stats/_components/widgets/AssetCount_body',
             [
                 'display' => $this->display,
-                'showSection' => $this->showSection,
-                'status' => $this->status === 'all' ? null : $this->status,
+                'showVolume' => $this->showVolume,
                 'widgetTitle' => $this->widgetTitle,
                 'widget' => $this,
             ]

@@ -14,73 +14,71 @@
  */
 #}
 
-<h1>{{ widgetTitle }}</h1>
+<h1 class="contentstats__header"><span class="contentstats__header__icon">{{ svg('@app/icons/newspaper.svg') }}</span><span class="contentstats__header__title">{{ widgetTitle }}</span></h1>
 
-{#{% cache globally using key 'content-stats-' ~ widget.id %}#}
-    <div class="contentstats__stats contentstats__stats--{{ display }}">
-        {% for key, show in showSection %}
-            {% if show %}
-                <div class="contentstats__stat">
-                    {% if display == 'simple' %}
-                        {% set section = craft.app.sections.sectionByHandle(key) %}
-                        {% set total = craft.entries.section(section.handle).status(status).count() %}
-                        <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
-                        <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
-                    {% elseif display == 'status' %}
-                        {% set section = craft.app.sections.sectionByHandle(key) %}
-                        {% set total = craft.entries.section(section.handle).status(status).count() %}
-                        {% set totalLive = craft.entries.section(section.handle).status('live').count() %}
-                        {% set totalPending = craft.entries.section(section.handle).status('pending').count() %}
-                        {% set totalExpired = craft.entries.section(section.handle).status('expired').count() %}
-                        {% set totalDisabled = craft.entries.section(section.handle).status('disabled').count() %}
-                        <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
-                        <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
-                        <div class="contentstats__stat__statuses">
-                            {% if totalLive > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalLive }} Live"><span class="contentstats__stat__indicator contentstats__stat__indicator--live"></span>{{ totalLive }}</span>
-                            {% endif %}
-                            {% if totalPending > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalPending }} Pending"><span class="contentstats__stat__indicator contentstats__stat__indicator--pending"></span>{{ totalPending }}</span>
-                            {% endif %}
-                            {% if totalExpired > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalExpired }} Expired"><span class="contentstats__stat__indicator contentstats__stat__indicator--expired"></span>{{ totalExpired }}</span>
-                            {% endif %}
-                            {% if totalDisabled > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalDisabled }} Disabled"><span class="contentstats__stat__indicator contentstats__stat__indicator--disabled"></span>{{ totalDisabled }}</span>
-                            {% endif %}
-                        </div>
-                    {% elseif display == 'everything' %}
-                        {% set section = craft.app.sections.sectionByHandle(key) %}
-                        {% set total = craft.entries.section(section.handle).status(null).count() %}
-                        {% set totalLive = craft.entries.section(section.handle).status('live').count() %}
-                        {% set totalPending = craft.entries.section(section.handle).status('pending').count() %}
-                        {% set totalExpired = craft.entries.section(section.handle).status('expired').count() %}
-                        {% set totalDisabled = craft.entries.section(section.handle).status('disabled').count() %}
-                        <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
-                        <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
-                        <div class="contentstats__stat__type_totals">
-                            {% for type in craft.app.sections.entryTypesBySectionId(section.id) %}
-                                {% set typeTotal = craft.entries.section(section.handle).type(type.handle).count() %}
-                                <span class="contentstats__stat__type_total_number">{{ typeTotal }}</span><span class="contentstats__stat__type_total_name">{{ type.name }}</span>
-                            {% endfor %}
-                        </div>
-                        <div class="contentstats__stat__statuses">
-                            {% if totalLive > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalLive }} Live"><span class="contentstats__stat__indicator contentstats__stat__indicator--live"></span>{{ totalLive }}</span>
-                            {% endif %}
-                            {% if totalPending > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalPending }} Pending"><span class="contentstats__stat__indicator contentstats__stat__indicator--pending"></span>{{ totalPending }}</span>
-                            {% endif %}
-                            {% if totalExpired > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalExpired }} Expired"><span class="contentstats__stat__indicator contentstats__stat__indicator--expired"></span>{{ totalExpired }}</span>
-                            {% endif %}
-                            {% if totalDisabled > 0 %}
-                                <span class="contentstats__stat__status" title="{{ totalDisabled }} Disabled"><span class="contentstats__stat__indicator contentstats__stat__indicator--disabled"></span>{{ totalDisabled }}</span>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-{#{% endcache %}#}
+<div class="contentstats__stats contentstats__stats--{{ display }}">
+    {% for key, show in showSection %}
+        {% if show %}
+            <div class="contentstats__stat">
+                {% if display == 'simple' %}
+                    {% set section = craft.app.sections.sectionByHandle(key) %}
+                    {% set total = craft.entries.section(section.handle).status(status).count() %}
+                    <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
+                    <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
+                {% elseif display == 'status' %}
+                    {% set section = craft.app.sections.sectionByHandle(key) %}
+                    {% set total = craft.entries.section(section.handle).status(status).count() %}
+                    {% set totalLive = craft.entries.section(section.handle).status('live').count() %}
+                    {% set totalPending = craft.entries.section(section.handle).status('pending').count() %}
+                    {% set totalExpired = craft.entries.section(section.handle).status('expired').count() %}
+                    {% set totalDisabled = craft.entries.section(section.handle).status('disabled').count() %}
+                    <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
+                    <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
+                    <div class="contentstats__stat__statuses">
+                        {% if totalLive > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalLive }} Live"><span class="contentstats__stat__indicator contentstats__stat__indicator--live"></span>{{ totalLive }}</span>
+                        {% endif %}
+                        {% if totalPending > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalPending }} Pending"><span class="contentstats__stat__indicator contentstats__stat__indicator--pending"></span>{{ totalPending }}</span>
+                        {% endif %}
+                        {% if totalExpired > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalExpired }} Expired"><span class="contentstats__stat__indicator contentstats__stat__indicator--expired"></span>{{ totalExpired }}</span>
+                        {% endif %}
+                        {% if totalDisabled > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalDisabled }} Disabled"><span class="contentstats__stat__indicator contentstats__stat__indicator--disabled"></span>{{ totalDisabled }}</span>
+                        {% endif %}
+                    </div>
+                {% elseif display == 'everything' %}
+                    {% set section = craft.app.sections.sectionByHandle(key) %}
+                    {% set total = craft.entries.section(section.handle).status(null).count() %}
+                    {% set totalLive = craft.entries.section(section.handle).status('live').count() %}
+                    {% set totalPending = craft.entries.section(section.handle).status('pending').count() %}
+                    {% set totalExpired = craft.entries.section(section.handle).status('expired').count() %}
+                    {% set totalDisabled = craft.entries.section(section.handle).status('disabled').count() %}
+                    <a class="contentstats__stat__label" href="{{ url('entries/' ~ section.handle) }}">{{ section.name }}</a>
+                    <a class="contentstats__stat__total" href="{{ url('entries/' ~ section.handle) }}">{{ total }}</a>
+                    <div class="contentstats__stat__type_totals">
+                        {% for type in craft.app.sections.entryTypesBySectionId(section.id) %}
+                            {% set typeTotal = craft.entries.section(section.handle).type(type.handle).count() %}
+                            <span class="contentstats__stat__type_total_number">{{ typeTotal }}</span><span class="contentstats__stat__type_total_name">{{ type.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="contentstats__stat__statuses">
+                        {% if totalLive > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalLive }} Live"><span class="contentstats__stat__indicator contentstats__stat__indicator--live"></span>{{ totalLive }}</span>
+                        {% endif %}
+                        {% if totalPending > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalPending }} Pending"><span class="contentstats__stat__indicator contentstats__stat__indicator--pending"></span>{{ totalPending }}</span>
+                        {% endif %}
+                        {% if totalExpired > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalExpired }} Expired"><span class="contentstats__stat__indicator contentstats__stat__indicator--expired"></span>{{ totalExpired }}</span>
+                        {% endif %}
+                        {% if totalDisabled > 0 %}
+                            <span class="contentstats__stat__status" title="{{ totalDisabled }} Disabled"><span class="contentstats__stat__indicator contentstats__stat__indicator--disabled"></span>{{ totalDisabled }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,53 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * AssetCount Widget Settings
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      https://wbrowar.com
+ * @package   ContentStats
+ * @since     2.1.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% set viewableVolumes = craft.app.volumes.viewableVolumes %}
+
+{{ forms.textField({
+    label: "Header",
+    name: "widgetTitle",
+    placeholder: 'Asset Count',
+    value: settings.widgetTitle ?? 'Asset Count',
+}) }}
+
+{{ forms.selectField({
+    label: "Information Displayed",
+    name: "display",
+    value: settings.display ?? 'simple',
+    options: {
+        simple: 'Total Files',
+        size: 'Total Files + File Size',
+    },
+}) }}
+
+{% if viewableVolumes|length %}
+    <div class="contentstats__settings__sections">
+        {% for volume in viewableVolumes %}
+            {% set volumeHandle = volume.handle %}
+            {% set volumeName = volume.name %}
+
+            {{ volumeName }}
+            {{ forms.lightswitch({
+                name: "showVolume[" ~ volumeHandle ~ "]",
+                on: settings.showVolume[volumeHandle] ?? false,
+            }) }}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>There currently aren&rsquo;t any asset volumes in this website.</p>
+{% endif %}
+

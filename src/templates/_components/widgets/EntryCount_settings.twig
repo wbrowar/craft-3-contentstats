@@ -20,8 +20,8 @@
 {{ forms.textField({
     label: "Header",
     name: "widgetTitle",
-    placeholder: 'Entry Stats',
-    value: settings.widgetTitle ?? 'Entry Stats',
+    placeholder: 'Entry Count',
+    value: settings.widgetTitle ?? 'Entry Count',
 }) }}
 
 {{ forms.selectField({
@@ -51,7 +51,6 @@
 {% if editableSections|length %}
     <div class="contentstats__settings__sections">
         {% for section in editableSections %}
-            {% set entryTypes = section.getEntryTypes() %}
             {% set sectionHandle = section.handle %}
             {% set sectionName = section.name %}
 
@@ -67,69 +66,3 @@
 {% else %}
     <p>There currently aren&rsquo;t any Channel or Structure sections in this website.</p>
 {% endif %}
-
-{#
-{% set editableSections = craft.sections.getEditableSections() %}
-<div id="defaults">
-    {{ forms.textField({
-        label: "Header",
-        name: "widgetTitle",
-        placeholder: 'Content Stats',
-        value: (settings.widgetTitle is defined and settings.widgetTitle is not empty ? settings.widgetTitle : ''),
-    }) }}
-
-    <table class="data fullwidth">
-        <thead>
-        <th style="width:20%;">Section</th>
-        <th style="width:10%;">Show Stats</th>
-        <th style="width:10%;">Status</th>
-        <th style="width:60%;">Section Label</th>
-        </thead>
-        {% for section in editableSections %}
-            {% set entryTypes = section.getEntryTypes() %}
-
-            {% if section.type == 'channel' or section.type == 'structure' %}
-                {% set handle = section.handle %}
-                <tr class="stats_settings" data-section-handle="{{ section.handle }}">
-                    <td>{{ section.name }}</td>
-                    <td class="stat_switch">
-                        {{ forms.lightswitch({
-                            name: "showSection[" ~ handle ~ "]",
-                            on: (settings.showSection[handle] is defined and settings.showSection[handle] is not empty ? settings.showSection[handle] : false),
-                        }) }}
-                    </td>
-                    <td class="stat_setting">
-                        {{ forms.select({
-                            name: "showStatus[" ~ handle ~ "]",
-                            options: {'live':'Live','disabled':'Disabled','pending':'Pending','expired':'Expired'},
-                            value: (settings.showStatus[handle] is defined and settings.showStatus[handle] is not empty ? settings.showStatus[handle] : 'live'),
-                        }) }}
-                    </td>
-                    <td class="stat_setting">
-                        {{ forms.text({
-                            name: "sectionLabel[" ~ handle ~ "]",
-                            placeholder: section.name ~ ' Entries',
-                            value: (settings.sectionLabel[handle] is defined and settings.sectionLabel[handle] is not empty ? settings.sectionLabel[handle] : ''),
-                        }) }}
-                    </td>
-                    <input type="hidden" name="sectionHandle[{{ handle }}]" value="{{ handle }}">
-                    <input type="hidden" name="showGroup[{{ handle }}]" value="0">
-                </tr>
-                {% if entryTypes|length > 1 %}
-                    {% for type in entryTypes %}
-                        <tr data-entry-types-for="{{ section.handle }}">
-                            <td colspan="3" class="light">&nbsp;&nbsp;&nbsp;{{ type.name }}</td>
-                            <td>
-                                {{ forms.lightswitch({
-                                    name: "showSectionType[" ~ handle ~ "][" ~ type.handle ~ "]",
-                                    on: (settings.showSectionType[handle][type.handle] is defined and settings.showSectionType[handle][type.handle] is not empty ? settings.showSectionType[handle][type.handle] : false),
-                                }) }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </table>
-</div>
-#}

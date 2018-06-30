@@ -1,0 +1,31 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * CategoryCount Widget Body
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      https://wbrowar.com
+ * @package   ContentStats
+ * @since     2.1.0
+ */
+#}
+
+<h1 class="contentstats__header"><span class="contentstats__header__icon">{{ svg('@app/icons/folder-open.svg') }}</span><span class="contentstats__header__title">{{ widgetTitle }}</span></h1>
+
+<div class="contentstats__stats contentstats__stats--{{ display }}">
+    {% for key, show in showGroup %}
+        {% if show %}
+            <div class="contentstats__stat">
+                {% if display == 'simple' %}
+                    {% set group = craft.app.categories.groupByHandle(key) %}
+                    {% set total = craft.categories.group(group.handle).count() %}
+                    <a class="contentstats__stat__total" href="{{ url('categories/' ~ group.handle) }}">{{ total }}</a>
+                    <a class="contentstats__stat__label" href="{{ url('categories/' ~ group.handle) }}">{{ group.name }}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

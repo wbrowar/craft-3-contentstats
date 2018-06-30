@@ -22,7 +22,7 @@ use craft\base\Widget;
  * @package   ContentStats
  * @since     2.0.0
  */
-class EntryCount extends Widget
+class UserCount extends Widget
 {
 
     // Public Properties
@@ -34,19 +34,24 @@ class EntryCount extends Widget
     public $display = 'simple';
 
     /**
+     * @var boolean
+     */
+    public $showAdmin = false;
+
+    /**
      * @var mixed
      */
-    public $showSection = [];
+    public $showGroup = [];
 
     /**
      * @var string
      */
-    public $status = 'live';
+    public $status = 'active';
 
     /**
      * @var string
      */
-    public $widgetTitle = 'Entry Count';
+    public $widgetTitle = 'User Count';
 
     // Static Methods
     // =========================================================================
@@ -56,7 +61,7 @@ class EntryCount extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('content-stats', 'Entry Count');
+        return Craft::t('content-stats', 'User Count');
     }
 
     /**
@@ -89,7 +94,7 @@ class EntryCount extends Widget
             [
                 [['display','widgetTitle'], 'string'],
                 ['display', 'default', 'value' => 'simple'],
-                ['widgetTitle', 'default', 'value' => 'Entry Count'],
+                ['widgetTitle', 'default', 'value' => 'User Count'],
             ]
         );
         return $rules;
@@ -101,7 +106,7 @@ class EntryCount extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_settings',
+            'content-stats/_components/widgets/UserCount_settings',
             [
                 'settings' => $this->settings,
                 'widget' => $this
@@ -119,10 +124,11 @@ class EntryCount extends Widget
         //Craft::dd($this->showSection);
 
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_body',
+            'content-stats/_components/widgets/UserCount_body',
             [
                 'display' => $this->display,
-                'showSection' => $this->showSection,
+                'showAdmin' => $this->showAdmin,
+                'showGroup' => $this->showGroup,
                 'status' => $this->status === 'all' ? null : $this->status,
                 'widgetTitle' => $this->widgetTitle,
                 'widget' => $this,

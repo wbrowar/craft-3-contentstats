@@ -1,0 +1,65 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * UserCount Widget Settings
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      http://wbrowar.com
+ * @package   ContentStats
+ * @since     2.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% set editableGroups = craft.app.userGroups.assignableGroups %}
+
+{{ forms.textField({
+    label: "Header",
+    name: "widgetTitle",
+    placeholder: 'User Count',
+    value: settings.widgetTitle ?? 'User Count',
+}) }}
+
+{#
+{{ forms.selectField({
+    label: "User Status",
+    name: "status",
+    value: settings.status ?? 'all',
+    options: {
+        enabled: 'Enabled',
+        disabled: 'Disabled',
+        all: 'All Entries',
+    },
+}) }}
+#}
+
+{% if currentUser.admin %}
+    <div class="contentstats__settings__sections">
+        Admins
+        {{ forms.lightswitch({
+            name: "showAdmin",
+            on: settings.showAdmin,
+        }) }}
+    </div>
+{% endif %}
+
+{% if editableGroups|length %}
+    <div class="contentstats__settings__sections">
+        {% for group in editableGroups %}
+            {% set groupHandle = group.handle %}
+            {% set groupName = group.name %}
+
+            {{ groupName }}
+            {{ forms.lightswitch({
+                name: "showGroup[" ~ groupHandle ~ "]",
+                on: settings.showGroup[groupHandle] ?? false,
+            }) }}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>There currently aren&rsquo;t any User Groups in this website.</p>
+{% endif %}

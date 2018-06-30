@@ -1,0 +1,41 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * EntryCount Widget Body
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      http://wbrowar.com
+ * @package   ContentStats
+ * @since     2.0.0
+ */
+#}
+
+<h1 class="contentstats__header"><span class="contentstats__header__icon">{{ svg('@app/icons/users.svg') }}</span><span class="contentstats__header__title">{{ widgetTitle }}</span></h1>
+
+<div class="contentstats__stats contentstats__stats--{{ display }}">
+    {% if showAdmin %}
+        <div class="contentstats__stat">
+            {% if display == 'simple' %}
+                {% set total = craft.users.admin('1').count() %}
+                <a class="contentstats__stat__total" href="{{ url('users') }}">{{ total }}</a>
+                <a class="contentstats__stat__label" href="{{ url('users') }}">Admins</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% for key, show in showGroup %}
+        {% if show %}
+            <div class="contentstats__stat">
+                {% if display == 'simple' %}
+                    {% set group = craft.app.userGroups.groupByHandle(key) %}
+                    {% set total = craft.users.group(group.handle).status(status).count() %}
+                    <a class="contentstats__stat__total" href="{{ url('users') }}">{{ total }}</a>
+                    <a class="contentstats__stat__label" href="{{ url('users') }}">{{ group.name }}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

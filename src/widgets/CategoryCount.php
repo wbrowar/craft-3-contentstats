@@ -2,9 +2,9 @@
 /**
  * Content Stats plugin for Craft CMS 3.x
  *
- * Display info about your site's entries.
+ * This is a generic Craft CMS plugin
  *
- * @link      http://wbrowar.com
+ * @link      https://wbrowar.com
  * @copyright Copyright (c) 2018 Will Browar
  */
 
@@ -20,9 +20,9 @@ use craft\base\Widget;
  *
  * @author    Will Browar
  * @package   ContentStats
- * @since     2.0.0
+ * @since     2.1.0
  */
-class EntryCount extends Widget
+class CategoryCount extends Widget
 {
 
     // Public Properties
@@ -36,17 +36,12 @@ class EntryCount extends Widget
     /**
      * @var mixed
      */
-    public $showSection = [];
+    public $showGroup = [];
 
     /**
      * @var string
      */
-    public $status = 'live';
-
-    /**
-     * @var string
-     */
-    public $widgetTitle = 'Entry Count';
+    public $widgetTitle = 'Category Count';
 
     // Static Methods
     // =========================================================================
@@ -56,7 +51,7 @@ class EntryCount extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('content-stats', 'Entry Count');
+        return Craft::t('content-stats', 'Category Count');
     }
 
     /**
@@ -89,7 +84,7 @@ class EntryCount extends Widget
             [
                 [['display','widgetTitle'], 'string'],
                 ['display', 'default', 'value' => 'simple'],
-                ['widgetTitle', 'default', 'value' => 'Entry Count'],
+                ['widgetTitle', 'default', 'value' => 'Category Count'],
             ]
         );
         return $rules;
@@ -101,7 +96,7 @@ class EntryCount extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_settings',
+            'content-stats/_components/widgets/CategoryCount_settings',
             [
                 'settings' => $this->settings,
                 'widget' => $this
@@ -116,14 +111,11 @@ class EntryCount extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(ContentStatsAsset::class);
 
-        //Craft::dd($this->showSection);
-
         return Craft::$app->getView()->renderTemplate(
-            'content-stats/_components/widgets/EntryCount_body',
+            'content-stats/_components/widgets/CategoryCount_body',
             [
                 'display' => $this->display,
-                'showSection' => $this->showSection,
-                'status' => $this->status === 'all' ? null : $this->status,
+                'showGroup' => $this->showGroup,
                 'widgetTitle' => $this->widgetTitle,
                 'widget' => $this,
             ]

@@ -1,0 +1,43 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Content Stats plugin for Craft CMS
+ *
+ * AssetCount Widget Body
+ *
+ * @author    Will Browar
+ * @copyright Copyright (c) 2018 Will Browar
+ * @link      https://wbrowar.com
+ * @package   ContentStats
+ * @since     2.1.0
+ */
+#}
+
+{% import _self as self %}
+
+<h1 class="contentstats__header"><span class="contentstats__header__icon">{{ svg('@app/icons/photo.svg') }}</span><span class="contentstats__header__title">{{ widgetTitle }}</span></h1>
+
+<div class="contentstats__stats contentstats__stats--{{ display }}">
+    {% for key, show in showVolume %}
+        {% if show %}
+            <div class="contentstats__stat">
+                {% if display == 'simple' %}
+                    {% set volume = craft.app.volumes.volumeByHandle(key) %}
+                    {% set total = craft.assets.volume(volume.handle).count() %}
+                    <a class="contentstats__stat__total" href="{{ url('assets') }}">{{ total }}</a>
+                    <a class="contentstats__stat__label" href="{{ url('assets') }}">{{ volume.name }}</a>
+                {% elseif display == 'size' %}
+                    {% set volume = craft.app.volumes.volumeByHandle(key) %}
+                    {% set total = craft.assets.volume(volume.handle).count() %}
+                    {% set fileSize = craft.assets.volume(volume.handle).sum('size') %}
+
+                    <a class="contentstats__stat__label" href="{{ url('assets') }}">{{ volume.name }}</a>
+                    <a class="contentstats__stat__total" href="{{ url('assets') }}">{{ total }}</a>
+                    <div class="contentstats__stat__statuses">
+                        <span class="contentstats__stat__status" title="Total File Size">{{ craft.contentStats.formattedFileSize(fileSize) }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
