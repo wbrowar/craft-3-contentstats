@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 2.1.1 - 2018-04-03
+### Removed
+- Gradient backgrounds
+
+
 ## 2.1.0 - 2018-06-30
 ### Added
 - Added a new widget that shows information about Asset Volumes and the total file size for each volume

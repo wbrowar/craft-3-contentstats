@@ -10,7 +10,7 @@ This plugin requires Craft CMS 3.0.12 or later.
 
 ## Installation
 
-To install the plugin, follow these instructions.
+To install the plugin, you can find it in the [Craft Plugin Store](https://plugins.craftcms.com/content-stats), or follow these instructions.
 
 1. Open your terminal and go to your Craft project:
 
