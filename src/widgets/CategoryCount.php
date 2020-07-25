@@ -57,9 +57,9 @@ class CategoryCount extends Widget
     /**
      * @inheritdoc
      */
-    public static function iconPath()
+    public static function icon()
     {
-        return Craft::getAlias("@wbrowar/contentstats/icon-mask.svg");
+        return Craft::getAlias("@wbrowar/contentstats/assetbundles/contentstats/dist/icon/icon-mask.svg");
     }
 
     /**
